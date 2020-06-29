@@ -1,0 +1,47 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the powerSum function below.
+    static int powerSum(int X, int N, int curr_num, int curr_sum) {
+
+        int res=0;
+        int p = (int)Math.pow(curr_num,N);
+        while(p+curr_sum<X)
+        {
+            res+=powerSum(X,N,curr_num+1,p+curr_sum);
+            curr_num++;
+            p=(int)Math.pow(curr_num,N);
+        }
+        if (p + curr_sum == X)  
+        res++;  
+    return res;  
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int X = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int N = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int result = powerSum(X, N, 1,0);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
